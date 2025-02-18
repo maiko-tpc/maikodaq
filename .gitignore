@@ -1,0 +1,5 @@
+*.o
+*~
+MAIKo_DAQ
+*.raw
+data
