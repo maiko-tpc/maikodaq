@@ -84,7 +84,8 @@ void GigaIwaki(const char *host, bool &end_flag){
 	  FileNum++;
 
 	  char filename[300];
-	  sprintf(filename, "uTPC_%s_%05d.raw", host, FileNum);
+	  sprintf(filename, "%s/uTPC_%04d_%s_%05d.raw",
+		  str_datadir.c_str(), runnum, host, FileNum);
 	  OutData.open(filename);
 	}
       }
