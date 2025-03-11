@@ -79,7 +79,7 @@ void GigaIwaki(const char *host, bool &end_flag){
       if(num>0){
 	OutData.write(msg, num);
 
-	if(OutData.tellp() > 0xffffffff){
+	if(OutData.tellp() > 0xfffffffff){ // 64GB maximum
 	  OutData.close();
 	  FileNum++;
 

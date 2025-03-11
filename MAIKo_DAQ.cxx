@@ -80,7 +80,6 @@ int main(int argc, char *argv[]){
   end_flag = 0;
   signal(SIGINT, EndSeq);
 
-  char cmd[256];
   int res;
 
   if(argc!=2){
@@ -111,33 +110,26 @@ int main(int argc, char *argv[]){
   ofs_runnum << runnum+1 << endl;
   ofs_runnum.close();
   
-  
-  // Write Run comment
-  string runcom = argv[1];
-  ofstream ofs_runcom("runcom.dat", ios::app);  
-  char comment[512];
-  sprintf(comment, "%04d %s\n", runnum+1, runcom.c_str());
-  ofs_runcom << comment << endl;
-  ofs_runcom.close();
-  
   // Get start time
-  time_t timer;                                                                  
-  struct tm *local;                                                              
-  int year, month, day, hour, min, sec;                                          
-                                                                                 
-  timer = time(NULL);                                                            
-  local = localtime(&timer);                                                     
-  year = local->tm_year + 1900;                                                  
-  month = local->tm_mon + 1;                                                     
-  day = local->tm_mday;
+  time_t timer;                                                                   struct tm *local;                                                               int year, month, day, hour, min, sec;                                           timer = time(NULL);                                                             local = localtime(&timer);                                                      year = local->tm_year + 1900;                                                   month = local->tm_mon + 1;                                                      day = local->tm_mday;
   hour = local->tm_hour;                                                       
   min = local->tm_min;                                                         
   sec = local->tm_sec;            
   
   printf("DAQ start time: %d/%02d/%02d %02d:%02d:%02d\n",
 	 year, month, day, hour, min, sec);
-
-
+  
+  // Write Run comment
+  string runcom = argv[1];
+  ofstream ofs_runcom("runcom.dat", ios::app);  
+  char comment[1024];
+  sprintf(comment, "%04d START:%d/%02d/%02d %02d:%02d:%02d  %s",
+	  runnum+1,
+	  year, month, day, hour, min, sec,
+	  runcom.c_str());
+  ofs_runcom << comment << endl;
+  ofs_runcom.close();
+  
   // trigger disable !!!
   //  sprintf(cmd, "./trg_disable.sh");
   //  res = system(cmd);
@@ -256,7 +248,13 @@ int main(int argc, char *argv[]){
   
   printf("DAQ stop time: %d/%02d/%02d %02d:%02d:%02d\n",
 	 year, month, day, hour, min, sec);
-
   
+  // write run comment
+  ofstream ofs_runcom2("runcom.dat", ios::app);  
+  sprintf(comment, "STOP:%d/%02d/%02d %02d:%02d:%02d\n",
+	  year, month, day, hour, min, sec);
+  ofs_runcom2 << comment << endl;
+  ofs_runcom2.close();
+
   signal(SIGINT, SIG_DFL);
 }
