@@ -8,5 +8,6 @@ Required VME modules
 
 useage: ./MAIKo_DAQ run_comment
 
-Output files are saved in the directory written in "datadir.dat"
-Run number automatically increments according to "runnum.dat"
+Output files are saved in the directory written in "datadir.dat".
+
+Run number automatically increments according to "runnum.dat".
