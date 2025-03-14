@@ -111,7 +111,14 @@ int main(int argc, char *argv[]){
   ofs_runnum.close();
   
   // Get start time
-  time_t timer;                                                                   struct tm *local;                                                               int year, month, day, hour, min, sec;                                           timer = time(NULL);                                                             local = localtime(&timer);                                                      year = local->tm_year + 1900;                                                   month = local->tm_mon + 1;                                                      day = local->tm_mday;
+  time_t timer;
+  struct tm *local;
+  int year, month, day, hour, min, sec;
+  timer = time(NULL);
+  local = localtime(&timer);
+  year = local->tm_year + 1900;
+  month = local->tm_mon + 1;
+  day = local->tm_mday;
   hour = local->tm_hour;                                                       
   min = local->tm_min;                                                         
   sec = local->tm_sec;            
